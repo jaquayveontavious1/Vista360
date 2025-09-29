@@ -77,3 +77,31 @@ footer {
   padding: 15px 0;
   margin-top: 30px;
 }
+.blueprint-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: #f9fafb;
+}
+
+.blueprint-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.blueprint-section .note {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.blueprint-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.blueprint-img {
+  max-width: 800px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
