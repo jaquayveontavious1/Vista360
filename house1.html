@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4BR Villa – Njathaini Road | Vista360</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Viewer container */
+    #viewer {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      margin: 20px auto;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #viewer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Arrow hotspots */
+    .hotspot {
+      position: absolute;
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .hotspot:hover {
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    /* Example positioning (adjust per image) */
+    .to-living { top: 50%; left: 20%; }
+    .to-kitchen { top: 60%; left: 70%; }
+    .to-garden { top: 30%; left: 80%; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Vista360</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Property Details -->
+  <section class="property-details">
+    <h1 id="rent">FOR RENT: 4BR Villa in a Gated Community</h1>
+    <p class="location">Njathaini Road, off Kiambu Road</p>
+
+    <section class="interactive-demo">
+      <h2>Explore the House</h2>
+      <p>Click the arrows to move between rooms.</p>
+
+      <div id="viewer">
+        <img id="currentImage" src="images/FrontView.jpg" alt="Front View">
+
+        <!-- Hotspots (Front View example) -->
+        <div class="hotspot to-living" data-target="living">➡ Living Room</div>
+        <div class="hotspot to-garden" data-target="garden">➡ Garden</div>
+      </div>
+    </section>
+
+    <p class="rent" id="amount"><strong>Rent:</strong> Ksh 120,000 per month</p>
+
+    <p class="description">
+      Live in comfort and security in this spacious 4-bedroom villa <br> located in a serene gated community 
+      along Njathaini Road, just off Kiambu Road.<br> Perfect for families seeking a tranquil, yet connected lifestyle.
+    </p>
+  </section>
+  <div class="property-info"> <div class="info-card"> <h2>🌟 Features:</h2> <ul> <li>4 spacious bedrooms (master ensuite)</li> <li>Modern kitchen with pantry</li> <li>Ample living and dining space</li> <li>Private garden</li> <li>Secure parking for 2+ cars</li> <li>Borehole water supply</li> <li>24/7 security and electric fence</li> </ul> </div> <div class="info-card"> <h2>🛍 Nearby Shopping Malls:</h2> <ul> <li>Two Rivers Mall – 15 mins</li> <li>Ridgeways Mall</li> <li>Ciata Mall</li> <li>Quickmart Thindigua</li> <li>Village Market – 20 mins</li> <li>TRM (Thika Road Mall) – via Northern Bypass</li> </ul> </div> <div class="info-card"> <h2>🎓 Nearby Schools:</h2> <ul> <li>Brookhouse Runda</li> <li>Nova Pioneer Tatu City</li> <li>Woodcreek School</li> <li>Sabis International School</li> <li>Riara Springs Academy – Kiambu</li> <li>Kiambu High School</li> <li>Green Garden School</li> <li>Braeburn Garden Estate</li> </ul> </div> </div>
+
+
+<div class="highlight-box">
+  <p>
+    Enjoy peace, convenience, and easy access to major roads: 
+    <strong>Northern Bypass</strong>, <strong>Kiambu Road</strong>, 
+    <strong>Thika Superhighway</strong>.
+  </p>
+</div>
+
+<p class="rent">
+  🏡 <strong>Rent: Ksh 120,000 per month</strong>
+</p>
+
+<p class="contact">
+  For viewing or more details, 
+  <span class="phone">call/text: <strong>Ms Wanjiku Liu - 0723106120</strong> <strong></strong></span>
+</p>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Vista360. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Images for each room
+    const images = {
+      front: {
+        src: "images/FrontView.jpg",
+        hotspots: [
+          { text: "➡ Living Room", target: "living", top: "55%", left: "70%" },
+          { text: "➡ Right Sideview", target: "side", top: "80%", left: "90%" },
+          { text: "⬅ Left Sideview", target: "left", top: "80%", left: "8%" }
+        ]
+      },
+       left: {
+             src: "images/LeftFrontView.jpg",
+            hotspots: [
+                
+                { text: "➡ Back to Front", target: "front", top: "55%", left: "80%" }
+        ]
+      },
+      side: {
+             src: "images/RightFrontView.jpg",
+            hotspots: [
+                { text: "➡ Garden", target: "garden", top: "55%", left: "50%" },
+                { text: "⬅ Back to Front", target: "front", top: "80%", left: "20%" }
+        ]
+      },
+      living: {
+        src: "images/LivingRoom.jpg",
+        hotspots: [
+          { text: "➡ Kitchen", target: "kitchen", top: "88%", left: "90%" },
+          { text: "⬅ Back to Front", target: "front", top: "88%", left: "10%" },
+          {text: "⬆ Upstairs",target:"upstairs",top:"70%",left:"85%"}
+        ]
+      },
+      upstairs: {
+        src:"images/StaircaseM.jpg",
+        hotspots: [
+            {text:"⬆ Hallway",target:"hallway",top:"80%"},
+            {text:"⬇ Downstairs",target:"living",top:"80%", left:"50%"}
+        ]
+      },
+      hallway: {
+        src:"images/Hallway.jpg",
+        hotspots: [
+            {text:"⬆ Room 1",target:"room1",top:"60%",left:"50%"},
+            {text:"⬅ Room 2",target:"room2",top:"20%",left:"35%"},
+            {text:"⬇ Master Bedroom",target:"master",top:"90%",left:"35%"},
+            {text:"➡ Back to Stairs",target:"upstairs",top:"90%",left:"75%"},
+
+        ]
+      },
+      room1: {
+            src:"images/Room1.jpg",
+            hotspots: [
+                {text: "⬆ Balcony",target:"balcony",top:"40%",left:"29%"},
+                {text: "⬇ Back to Hall",target:"hallway",top:"90%",left:"50%"},
+                
+            ]
+      },
+      room2: {
+        src:"images/Room3.jpg",
+        hotspots: [
+            
+            {text: "⬇ Back to Hall",target:"hallway",top:"90%",left:"50%"},
+            {text: "➡ Window View",target:"window",top:"50%",left:"40%"},
+
+            
+        ]
+      },
+      master: {
+        src:"images/MasterBedroom.jpg",
+        hotspots: [
+            
+            {text: "⬇ Master Bathroom",target:"bathroom",top:"90%",left:"50%"},
+            {text: "➡ Back to Hall",target:"hallway",top:"50%",left:"60%"},
+
+            
+        ]
+      },
+      bathroom: {
+        src:"images/BathroomM.B.jpg",
+        hotspots: [
+            
+            {text: "⬇ Back to Master Room",target:"master",top:"90%",left:"50%"},
+            
+            
+        ]
+      },
+      window: {
+        src:"images/Window.jpg",
+        hotspots: [
+            
+            {text: "⬇ Back to Room",target:"room2",top:"90%",left:"50%"},
+           
+            
+            
+        ]
+      },
+      balcony: { 
+        src: "images/Balcony.jpg",
+        hotspots: [
+            {text: "➡ Back to Room 1",target:"room1",top:"70%", left:"80%"}
+        ]
+      },
+      kitchen: {
+        src: "images/Kitchen.jpg",
+        hotspots: [
+          { text: "⬅ Living Room", target: "living", top: "80%", left: "40%" }
+        ]
+      },
+      bedroom: {
+        src: "images/Room1.jpg",
+        hotspots: [
+          { text: "⬅ Living Room", target: "living", top: "70%", left: "20%" }
+        ]
+      },
+      garden: {
+        src: "images/Garden.jpg",
+        hotspots: [
+          { text: "⬇ Back to Side", target: "side", top: "80%", left: "50%" }
+        ]
+      }
+    };
+
+    const viewer = document.getElementById("viewer");
+    const currentImage = document.getElementById("currentImage");
+
+    function showRoom(room) {
+      const data = images[room];
+      currentImage.src = data.src;
+
+      // Remove old hotspots
+      viewer.querySelectorAll(".hotspot").forEach(h => h.remove());
+
+      // Add new hotspots
+      data.hotspots.forEach(h => {
+        const hotspot = document.createElement("div");
+        hotspot.className = "hotspot";
+        hotspot.innerText = h.text;
+        hotspot.style.top = h.top;
+        hotspot.style.left = h.left;
+        hotspot.dataset.target = h.target;
+        hotspot.onclick = () => showRoom(h.target);
+        viewer.appendChild(hotspot);
+      });
+    }
+
+    // Start with front view
+    showRoom("front");
+  </script>
+</body>
+</html>
