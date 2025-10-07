@@ -1,4 +1,14 @@
 
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById('mobile-menu');
+  const navLinks = document.getElementById('primary-navigation');
+
+  toggle.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+  });
+});
+
+
 
 
 // Create viewer
@@ -55,3 +65,5 @@ viewer.setPanorama(mainRoom);
 
 // Preload both
 viewer.preload([mainRoom, washRoom]);
+
+

@@ -1,78 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vista360 - Virtual Tours</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Three.js + Panolens -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.105.2/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/panolens@0.12.0/build/panolens.min.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vista360 - Virtual Tours</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Three.js + Panolens -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.105.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panolens@0.12.0/build/panolens.min.js"></script>
+  </head>
+  <body>
   <!-- Navbar -->
-  <nav>
+  <nav class="site-nav">
     <div class="logo">Vista360</div>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Contact</a></li>
+
+    <!-- Hamburger Button -->
+    <button id="mobile-menu"
+            class="menu-toggle"
+            aria-controls="primary-navigation"
+            aria-expanded="false"
+            aria-label="Toggle menu">
+        ☰
+    </button>
+
+    <ul id="primary-navigation" class="nav-links" role="menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <style>
+    /* ===== NAVBAR ===== */
+    .site-nav {
+      display: flex;
+      top: 0;
+      left: 0;
+      right: 0;
+      align-items: center;
+      justify-content: space-between;
+      background: #111;
+      color: #fff;
+      padding: 15px 40px;
+      position: fixed;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #fff; }
+    .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+    .nav-links a { color: #fff; text-decoration: none; padding: 6px 20px; transition: color 0.3s; }
+    .nav-links a:hover { color: gray; }
+    .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: #111;
+        text-align: center;
+        padding: 15px 0;
+      }
+      .nav-links.show { display: flex; animation: fadeIn 0.3s ease; }
+      .nav-links li { padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    /* ===== GENERAL STYLES ===== */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: #222;
+      scroll-behavior: smooth;
+      background-color: #fafafa;
+    }
+    section { padding: 100px 40px; text-align: center; }
+    h2 { font-size: 2rem; margin-bottom: 20px; color: #111; }
+    p { color: #444; line-height: 1.6; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/HeroBg.jpg') center/cover no-repeat;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .cta-btn {
+      background: #1776d6;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 40px;
+      border-radius: 30px;
+      margin-top: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+    }
+    .cta-btn:hover {
+      background: #0066cc;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(10, 132, 255, 0.5);
+    }
+
+    .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
+    .hero p { font-size: 1.2rem; }
+
+    /* ===== VIEWER ===== */
+    .viewer-section #container { width: 100%; height: 400px; background: #000; border-radius: 8px; }
+
+    /* ===== BLUEPRINT ===== */
+    .blueprint-wrapper img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* ===== PROPERTIES ===== */
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .property-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .property-card:hover { transform: translateY(-5px); }
+    .property-card img { width: 100%; height: 200px; object-fit: cover; }
+    .property-card h3 { margin: 10px 0; }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: gray; }
+
+    /* ===== EXTRA SECTIONS ===== */
+    .steps, .why-grid, .testimonials { display: grid; gap: 20px; }
+    .steps { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .step, .why-item, .testimonial {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .why-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .testimonials { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    /* ===== CONTACT ===== */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+    .whatsapp {
+      display: inline-block;
+      margin-top: 10px;
+      background: #25d366;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 25px 0;
+      margin-top: 50px;
+    }
+  </style>
+
+  <!-- HERO -->
+  <section id="headline">
     <h1>Experience Properties Like Never Before</h1>
-    <p>Immersive 360° Virtual Tours for Real Estate</p>
+    <p id="describe">Immersive 360° Virtual Tours for Real Estate Properties</p>
+    <a href="form.html" class="cta-btn">Book a Demo</a>
   </section>
-
-  <!-- 360 Viewer -->
-  <section class="viewer-section">
-    <h2>Interactive Demo</h2>
-    <div id="container"></div>
-  </section>
-
-  <section class="blueprint-section">
-    <h2>Property Layout (Concept)</h2>
-    <p class="note">
-      *This blueprint is a conceptual sketch. Measurements are approximate and meant only for visualization.*
-    </p>
-    <div class="blueprint-wrapper">
-      <img src="images/Blueprint1.jpg" alt="Property Blueprint Concept" class="blueprint-img">
+  <!-- HOW IT WORKS -->
+  <!-- HOW IT WORKS -->
+<section id="how-it-works" class="how-it-works">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="icon">📸</div>
+      <h3>1. Capture</h3>
+      <p>We collect detailed visuals of your property using high-resolution cameras for a seamless experience.</p>
     </div>
-  </section>
-    <section class="properties-section">
+
+    <div class="step">
+      <div class="icon">🧩</div>
+      <h3>2. Build</h3>
+      <p>Our creative team transforms those visuals into an interactive 3D experience and digital blueprint layout.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon">🌐</div>
+      <h3>3. Experience</h3>
+      <p>Clients explore your property virtually — anytime, anywhere — through our immersive 360° viewer.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon">🚀</div>
+      <h3>4. Share</h3>
+      <p>We publish and share your interactive listing — helping you attract serious buyers faster and easier.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+/* --- HOW IT WORKS SECTION --- */
+.how-it-works {
+  background: #fff;
+  color: #111;
+  padding: 60px 10px;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 2.2rem;
+  color: black;
+  margin-bottom: 50px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Steps Container */
+.steps {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Each Step Card */
+.step {
+  background: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px 25px;
+  flex: 1 1 200px;
+  max-width: 270px;
+  transition: all 0.3s ease;
+  border-top: 4px solid #0a84ff;
+}
+
+.step:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #0a84ff;
+}
+
+.step h3 {
+  font-size: 1.3rem;
+  color: #111;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.step p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .steps {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+</style>
+
+
+
+  <!-- INTERACTIVE DEMO -->
+   <!-- INTERACTIVE DEMO + BLUEPRINT SECTION -->
+    <section class="demo-blueprint-section" id="demo">
+      <div class="content-wrapper">
+        <!-- INTERACTIVE DEMO -->
+        <div class="viewer-section">
+          <h3>Interactive Demo</h3>
+          <div id="container"></div>
+        </div>
+
+        <!-- BLUEPRINT -->
+        <div class="blueprint-section">
+          <h3>Blueprint</h3>
+          <img src="images/Blueprint1.jpg" alt="Blueprint Image" class="blueprint-img" />
+          <p class="remark">
+            <em>Note: The blueprint shown is for approximation purposes only. Actual layout and dimensions may vary.</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .demo-blueprint-section {
+        padding: 40px 20px;
+        background-color: #f9f9f9;
+      }
+
+      .content-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .viewer-section, .blueprint-section {
+        flex: 1 1 450px;
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .viewer-section h2,
+      .blueprint-section h2 {
+        margin-bottom: 16px;
+        font-size: 1.5rem;
+      }
+
+      .blueprint-img {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 10px;
+      }
+
+      .remark {
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      @media (max-width: 768px) {
+        .content-wrapper {
+          flex-direction: column;
+        }
+      }
+    </style>
+
+
+
+
+
+
+
+
+  <!-- PROPERTIES -->
+  <section class="properties-section">
     <h2>Listed Properties</h2>
     <div class="properties-grid">
-      <!-- Property Card -->
       <div class="property-card">
-        <img src="images/FrontView.jpg" alt="House 1">
+        <img src="images/FrontView.jpg" alt="House 1" />
         <h3>4BR Villa in a Gated Community</h3>
-        <p> Njathaini Road, off Kiambu Road</p>
+        <p>Njathaini Road, off Kiambu Road</p>
         <a href="house1.html" class="btn">View Details</a>
       </div>
-
       <div class="property-card">
-        <img src="images/house2.jpg" alt="House 2">
+        <img src="images/Edenville.jpeg" alt="House 2" />
         <h3>Rosewood Villas</h3>
         <p>Lavington, Nairobi</p>
-        <a  class="btn">View Details</a>
+        <a href="#" class="btn">View Details</a>
       </div>
-
       <div class="property-card">
-        <img src="images/house3.jpg" alt="House 3">
+        <img src="images/Silverwood.jpg" alt="House 3" />
         <h3>Silverleaf Apartments</h3>
         <p>Westlands, Nairobi</p>
-        <a  class="btn">View Details</a>
+        <a href="#" class="btn">View Details</a>
       </div>
     </div>
   </section>
+      <section id="pricing" class="pricing-section">
+  <h2>Pricing Plans</h2>
+  <p class="subtitle">
+    Choose the perfect plan for your next property showcase. Whether you’re an agent or a real estate company, Vista360 gives you flexible options for immersive demos and blueprints.
+  </p>
 
-  <footer>
-    <p>© 2025 Vista360. All Rights Reserved.</p>
-  </footer>
+  <div class="table-wrapper">
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Includes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Basic Tour</strong></td>
+          <td>Single property interactive demo</td>
+          <td>KSh 2,000</td>
+          <td>
+            1 Property<br>
+            Interactive Demo<br>
+            Responsive Design<br>
+            <span class="excluded">No Blueprint Integration</span>
+          </td>
+          <td><a href="form.html" class="btn">Get Started</a></td>
+        </tr>
 
+        <tr class="highlight">
+          <td><strong>Professional</strong> <span class="badge">Most Popular</span></td>
+          <td>Includes Blueprint & Full Demo</td>
+          <td>KSh 3,000</td>
+          <td>
+            1 Property<br>
+            Interactive Demo<br>
+            Blueprint View<br>
+            Priority Support
+          </td>
+          <td><a href="form.html" class="btn btn-light">Get Started</a></td>
+        </tr>
+
+        <tr>
+          <td><strong>Bundle Offer</strong></td>
+          <td>3 Properties + Full Demos</td>
+          <td>KSh 4,000</td>
+          <td>
+            3 Properties<br>
+            Full Interactive Demos<br>
+            Blueprint Option<br>
+            Discounted Bundle
+          </td>
+          <td><a href="form.html" class="btn">Get Bundle</a></td>
+        </tr>
+
+        <tr>
+          <td><strong>Business</strong></td>
+          <td>For agencies with multiple listings</td>
+          <td>Custom</td>
+          <td>
+            Multiple Properties<br>
+            Full Demo + Blueprint<br>
+            24/7 Support<br>
+            Custom Integrations
+          </td>
+          <td><a href="form.html" class="btn">Contact Us</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <h2>What Our Clients Say</h2>
+    <div class="testimonials">
+      <div class="testimonial"><p>“Vista360 completely changed how I show properties. I close deals 2× faster!”</p><h4>- Sarah, Real Estate Agent</h4></div>
+      <div class="testimonial"><p>“Buyers love the interactive demo. It makes listings stand out.”</p><h4>- Kevin, Property Developer</h4></div>
+      <div class="testimonial"><p>“The process was fast and professional. Highly recommend!”</p><h4>- Jane, Homeowner</h4></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+   <!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <h2>Get in Touch</h2>
+  <p>Have a property you'd like to feature? Send us a message or chat with us directly on WhatsApp.</p>
+
+  <form class="contact-form">
+    <input type="text" placeholder="Your Name" required />
+    <input type="email" placeholder="Your Email" required />
+    <textarea rows="4" placeholder="Your Message"></textarea>
+    <button type="submit" class="btn">Send Message</button>
+  </form>
+
+  <a href="https://wa.me/254714414432" target="_blank" class="whatsapp">
+    💬 Chat on WhatsApp
+  </a>
+</section>
+
+
+
+  <!-- FINAL CTA -->
+  <!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-content">
+    <h2>Book a Free Interactive Demo Today</h2>
+    <p>See how Vista360 can help you attract more buyers and close faster.</p>
+    <a href="form.html" class="btn">Get Started</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2025 <span>Vista360</span>. All Rights Reserved. Designed by <strong>Kanyingi</strong>.</p>
+</footer>
+
+
+  <!-- JS for mobile menu -->
+  <script>
+    const menuToggle = document.getElementById("mobile-menu");
+    const navLinks = document.getElementById("primary-navigation");
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+  </script>
   <script src="script.js"></script>
 </body>
+
 </html>

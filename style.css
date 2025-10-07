@@ -14,6 +14,7 @@ nav {
   align-items: center;
   background: #111;
   padding: 15px 50px;
+  flex-wrap: wrap;
 }
 
 nav .logo {
@@ -37,13 +38,27 @@ nav ul li a {
 nav ul li a:hover {
   color: #f39c12;
 }
-
+.btn {
+ display: inline-block;
+  padding: 10px 18px;
+  background: #007bff; /* Blue background */
+  color: #fff; /* White text */
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.btn:hover {
+   background: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px);
+}
 /* Hero Section */
 .hero {
   text-align: center;
-  padding: 60px 20px;
+ 
+ 
   background: linear-gradient(to right, #222, #444);
-  color: white;
+  color: black;
 }
 
 .hero h1 {
@@ -68,17 +83,8 @@ nav ul li a:hover {
   border-radius: 10px;
   overflow: hidden;
 }
-.logo {
-  color: white;
-}
-/* Footer */
-footer {
-  text-align: center;
-  background: #111;
-  color: #aaa;
-  padding: 15px 0;
-  margin-top: 30px;
-}
+
+/* Blueprint Section */
 .blueprint-section {
   padding: 60px 20px;
   text-align: center;
@@ -107,7 +113,8 @@ footer {
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
-/* Listed Properties Section */
+
+/* Properties Section */
 .properties-section {
   padding: 50px 20px;
   background: #f9f9f9;
@@ -145,199 +152,281 @@ footer {
   height: 180px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 15
 }
 
-.property-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-  color: #111;
-}
-
-.property-card p {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 15px;
-}
-
-.property-card .btn {
-  display: inline-block;
-  padding: 10px 18px;
-  background: #aaa;
+/* ----- Responsive Navbar ----- */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
   color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  transition: background 0.3s;
+  cursor: pointer;
 }
 
-.property-card .btn:hover {
-  background: #005bb5;
+@media (max-width: 768px) {
+  nav {
+    flex-wrap: wrap;
+    padding: 15px 25px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    background: #111;
+    text-align: center;
+    padding: 4px 0;
+  }
+
+  .nav-links li {
+    margin: 12px 0;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    display: block;
+  }
+
+  nav.active .nav-links {
+    display: flex;
+    animation: slideDown 0.3s ease-in-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
-/* Rent & Contact */
-.property-details .rent {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #0072ff;
-  font-weight: bold;
-}
-
-.property-details h2 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-  color: #333;
-}
-
-.property-details ul {
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
-
-.property-details ul li {
-  margin-bottom: 8px;
-}
-
-.property-details .contact {
-  margin-top: 30px;
-  font-size: 1.1rem;
-  color: #111;
-  font-weight: bold;
-}
-#rent {
+/* ----- Footer Fix ----- */
+footer {
+  background: #111;
+  color: #ccc;
   text-align: center;
-  justify-content: center;
-}
-.location {
-  text-align: center;
-  justify-content: center;
-}
-#amount {
-  color: #111;
-}
-/* Property Info Cards Layout */
-.property-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  padding: 20px;
+  font-size: 0.95rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
-/* Individual Card */
-.info-card {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.info-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-.info-card h2 {
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-  color: #333;
-}
-
-.info-card ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.info-card ul li {
-  margin-bottom: 0.6rem;
-  color: #555;
+footer p {
+  margin: 0;
   line-height: 1.5;
 }
-.interactive-demo {
-  margin: 40px auto;
-  text-align: center;
+
+@media (max-width: 480px) {
+  footer {
+    font-size: 0.85rem;
+    padding: 15px 10px;
+  }
 }
-#demoTitle {
-  text-align: center;
+
+
+#headline {
+  background-color: #444;
+  color: white;
 }
-#viewer {
+#describe {
+  color: white;
+  font-size: 20px;
+}
+
+
+.pricing-section {
+  background: #f8fafc;
+  padding: 80px 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pricing-section h2 {
+  font-size: 36px;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #64748b;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.pricing-table {
   width: 100%;
-  height: 500px;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
   border-radius: 12px;
-  margin-bottom: 20px;
   overflow: hidden;
 }
 
-.viewer-controls {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.pricing-table thead {
+  background: #1776d6;
+  color: #fff;
 }
 
-.viewer-controls button {
-  padding: 10px 18px;
-  background: #0077ff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.viewer-controls button:hover {
-  background: #005ecc;
-}
-.rent {
-  text-align: center;
-  justify-content: center;
-}
-.description {
-   text-align: center;
-  justify-content: center;
-  font-size: large;
-}
-.highlight-box {
-  background: #f9f9f9;
-  border-left: 4px solid #aaa; /* blue accent */
-  padding: 12px 16px;
-  margin: 20px ;
-  border-radius: 6px;
+.pricing-table th, 
+.pricing-table td {
+  padding: 18px 20px;
+  text-align: left;
   font-size: 15px;
-  color: #333;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.rent {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 15px 0;
-  color: black;
+.pricing-table th:first-child,
+.pricing-table td:first-child {
+  text-align: left;
 }
 
-.contact {
+.pricing-table tr:hover {
+  background: #1776d6;
+  transition: all 0.3s ease;
+}
+
+.pricing-table .highlight {
+  background: #1776d6;
+  color: white;
+}
+
+.pricing-table .highlight td {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.pricing-table .highlight .btn {
+  background: white;
+  color: #1776d6;
+}
+
+.btn {
+  background: #1776d6;
+  color: #fff;
+  padding: 10px 22px;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  display: inline-block;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: #125ba1;
+  color: #fff;
+}
+
+.btn-light:hover {
+  background: #e2e8f0;
+}
+
+.badge {
+  background: #fff;
+  color: #1776d6;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+}
+
+.excluded {
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+.contact-section {
+  background: #f8fafc;
+  padding: 80px 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contact-section h2 {
+  font-size: 36px;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.contact-section p {
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto 40px;
   font-size: 16px;
-  margin: 10px ;
-  text-align: center;
-  justify-content: center;
+  line-height: 1.6;
 }
 
-.contact  {
-  
-  color:black;
-  padding: 6px 10px;
-  border-radius: 4px;
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
-.navigation {
-  background-color: #111;
-    width: 100%;            /* make navbar full width */
-  display: flex;          /* flex for horizontal layout */
-  justify-content: space-between; /* logo left, menu right */
-  align-items: center;    /* vertically center items */
-  padding: 10px 20px;     /* spacing */
-  box-sizing: border-box;
+
+.contact-form input,
+.contact-form textarea {
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s ease;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
-#rent {
-  text-align: center;
-  justify-content: center;
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #1776d6;
+  box-shadow: 0 0 0 3px rgba(23, 118, 214, 0.1);
 }
+
+.contact-form .btn {
+  background: #1776d6;
+  color: #fff;
+  padding: 14px 0;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-form .btn:hover {
+  background: #125ba1;
+  transform: scale(1.03);
+}
+
+/* WhatsApp Button */
+.whatsapp {
+  display: inline-block;
+  margin-top: 20px;
+  color: #25d366;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 17px;
+  transition: 0.3s ease;
+}
+
+.whatsapp:hover {
+  color: #128c7e;
+  transform: scale(1.05);
+}
+
+/* CTA SECTION */
+

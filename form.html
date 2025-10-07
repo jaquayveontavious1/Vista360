@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Demo | Vista360</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 18px;
+      padding: 50px 40px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: #111;
+      font-size: 28px;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 35px;
+      font-size: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fdfdfd;
+      color: #111;
+      font-size: 14px;
+      transition: border 0.3s ease, background 0.3s ease;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border: 1px solid #1776d6;
+      background: #f8fcff;
+    }
+
+    button {
+      background: #1776d6;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #0f5da6;
+      box-shadow: 0 4px 14px rgba(23, 118, 214, 0.25);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 30px 20px;
+        padding: 30px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Book Your Demo</h1>
+    <p>Share your property details and we’ll get in touch to create your immersive experience.</p>
+
+    <form action="https://formspree.io/f/mgvnlavv" method="POST">
+
+      <div>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+      </div>
+
+      <div>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+      </div>
+
+      <div>
+        <label for="phone">Phone Number (WhatsApp Preferred)</label>
+        <input type="tel" id="phone" name="phone" placeholder="+254..." required />
+      </div>
+
+      <div>
+        <label for="property-type">Type of Property</label>
+        <select id="property-type" name="property_type" required>
+          <option value="">Select property type</option>
+          <option value="Apartment">Apartment</option>
+          <option value="Bungalow">Bungalow</option>
+          <option value="Maisonette">Maisonette</option>
+          <option value="Commercial Building">Commercial Building</option>
+          <option value="Land">Land</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="location">Property Location</label>
+        <input type="text" id="location" name="location" placeholder="e.g. Kilimani, Nairobi" required />
+      </div>
+
+      <div>
+        <label for="rooms">Number of Rooms / Units</label>
+        <input type="number" id="rooms" name="rooms" placeholder="e.g. 3" min="1" required />
+      </div>
+
+      <div>
+        <label for="plan">Select a Pricing Plan</label>
+        <select id="plan" name="plan" required>
+          <option value="">Choose your plan</option>
+          <option value="Standard (1 Property) - KSh 2,000">Standard (1 Property) - KSh 2,000</option>
+          <option value="Blueprint Add-On - KSh 3,000">Blueprint Add-On - KSh 3,000</option>
+          <option value="Bundle (3 Properties) - KSh 4,000">Bundle (3 Properties) - KSh 4,000</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="demo-type">Preferred Demo Type</label>
+        <select id="demo-type" name="demo_type" required>
+          <option value="">Select type</option>
+          <option value="Interactive Demo">Interactive Demo</option>
+          <option value="360° Photos">360° Photos</option>
+          <option value="Both">Both</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="message">Additional Details</label>
+        <textarea id="message" name="message" rows="4" placeholder="Tell us anything else about the property..."></textarea>
+      </div>
+
+      <button type="submit">Submit Request</button>
+    </form>
+
+    <div class="footer">
+      <p>© 2025 Vista360. All Rights Reserved.</p>
+    </div>
+  </div>
+
+</body>
+</html>
