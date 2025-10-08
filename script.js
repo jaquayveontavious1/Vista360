@@ -1,12 +1,14 @@
 
-document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.getElementById('mobile-menu');
-  const navLinks = document.getElementById('primary-navigation');
+//document.addEventListener('DOMContentLoaded', () => {
+  //const toggle = document.getElementById('mobile-menu');
+  //const navLinks = document.getElementById('primary-navigation');
 
-  toggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-  });
-});
+  //toggle.addEventListener('click', () => {
+   // //navLinks.classList.toggle('show');
+  //});
+//});
+
+
 
 
 
@@ -64,6 +66,30 @@ viewer.add(mainRoom, washRoom);
 viewer.setPanorama(mainRoom);
 
 // Preload both
-viewer.preload([mainRoom, washRoom]);
+viewer.preload(mainRoom)
 
 
+
+const viewButtons = document.querySelectorAll('.btn');
+const demoMessage = document.getElementById('demo-message');
+
+viewButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    demoMessage.style.display = 'block';
+    demoMessage.textContent = 'This property is still under demo construction.';
+
+    setTimeout(() => {
+      demoMessage.style.display = 'none';
+    }, 3000);
+  });
+});
+
+// Demo buttons alert
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.demo-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.alert('🚧 This demo is currently under construction. Check back soon!');
+    });
+  });
+});
