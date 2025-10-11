@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vista360.co.ke/sitemap.xml

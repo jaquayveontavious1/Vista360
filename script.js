@@ -1,12 +1,17 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const menuButton = document.getElementById('mobile-menu');
+  const navLinks = document.getElementById('primary-navigation');
 
-//document.addEventListener('DOMContentLoaded', () => {
-  //const toggle = document.getElementById('mobile-menu');
-  //const navLinks = document.getElementById('primary-navigation');
+  if (menuButton && navLinks) {
+    menuButton.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
 
-  //toggle.addEventListener('click', () => {
-   // //navLinks.classList.toggle('show');
-  //});
-//});
+      const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', !expanded);
+    });
+  }
+});
+
 
 
 
@@ -66,7 +71,7 @@ viewer.add(mainRoom, washRoom);
 viewer.setPanorama(mainRoom);
 
 // Preload both
-viewer.preload(mainRoom)
+viewer.preload(mainRoom,washRoom)
 
 
 
@@ -93,3 +98,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+  const menuButton = document.getElementById('mobile-menu');
+  const navLinks = document.getElementById('primary-navigation');
+
+  if (menuButton && navLinks) {
+    menuButton.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+
+      const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', !expanded);
+    });
+  }
+
